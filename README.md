@@ -34,37 +34,37 @@ Playback mode
 * No CV/trig/gate output
 
 Autosample mode
-*   Define a note range, note length, and release length
-*   Produces CV/trig/gate output for each note in the range and records audio
+* Define a note range, note length, and release length
+* Produces CV/trig/gate output for each note in the range and records audio
 
 
 ### TODO list
 
 MIDI
-* Get MIDI messages from USB
+* ✓ Get MIDI messages from USB
 
 Audio out
-* Get audio output through card
-* Play audio from Python
-* Load a sample
+* ✓ Get audio output through card
+* ✓ Play audio from Python
+* ✓ Load a sample
 * Build an amplifier to get to eurorack levels
 
 Audio in
-* Get audio input through card
-* Record audio from Python
-* Save a sample
+* ✓ Get audio input through card
+* ✓ Record audio from Python
+* ✓ Save a sample
 * Build an attenuator to get from eurorack levels
 
 CV
-* Generate digital output
+* ✓ Generate digital output
 * Generate PWM output
 * Build a trigger out buffer
 * Build a CV out buffer/filter
 
 Integration
-* MIDI to CV mode
-* Record mode
-* Playback mode
+* ✓ MIDI to CV mode
+* ✓ Record mode
+* ✓ Playback mode
 * Autosample mode
 * Interactive application
 
