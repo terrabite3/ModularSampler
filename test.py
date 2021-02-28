@@ -16,6 +16,7 @@ class Main:
         self.library = SampleLibrary(sample_list)
         self._mode = mode
         self._recording_note = None
+        self._held_midi_notes = []
         self.verbose = False
 
     def set_mode(self, mode):
@@ -27,7 +28,9 @@ class Main:
 
     def _note_on_callback(self, note):
         if self._mode == 'midi_cv':
-            self.cv.note_on(note)
+            self._held_midi_notes.append(note)
+            # If more than one key is held, play the highest one
+            self.cv.note_on(max(self._held_midi_notes))
             self._log('playing note ' + str(note))
 
         elif self._mode == 'record':
@@ -49,8 +52,14 @@ class Main:
 
     def _note_off_callback(self, note):
         if self._mode == 'midi_cv':
-            self.cv.note_off()
-            self._log('stopping note ' + str(note))
+            while note in self._held_midi_notes:
+                self._held_midi_notes.remove(note)
+            if len(self._held_midi_notes) == 0:
+                self.cv.note_off()
+                self._log('stopping note ' + str(note))
+            else:
+                self.cv.note_on(max(self._held_midi_notes))
+                self._log('stopping note ' + str(note) + ', reverting to note ' + str(max(self._held_midi_notes)))
 
         elif self._mode == 'record':
             if note == self._recording_note:

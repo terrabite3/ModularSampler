@@ -57,9 +57,9 @@ Audio in
 
 CV
 * ✓ Generate digital output
-* Generate PWM output
-* Build a trigger out buffer
-* Build a CV out buffer/filter
+* ✓ Generate PWM output
+* ✓ Build a trigger out buffer
+* ✓ Build a CV out buffer/filter
 
 Integration
 * ✓ MIDI to CV mode
