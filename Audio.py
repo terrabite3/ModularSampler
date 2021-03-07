@@ -21,6 +21,10 @@ class Sample:
         self._pointer += frames_to_get_from_sample * self._frame_size
         return result
 
+    def is_finished(self):
+        frames_left_in_sample = len(self._sample) // self._frame_size - self._pointer // self._frame_size
+        return frames_left_in_sample == 0
+
     def reset(self):
         self._pointer = 0
 
@@ -48,8 +52,9 @@ class Mixer:
         self._active_samples = []
 
     def play_sample(self, sample):
+        # If the sample is already playing, start it over from the beginning
         if sample in self._active_samples:
-            # TODO: It could make sense to reset the sample instead
+            sample.reset()
             return
         sample.reset()
         self._active_samples.append(sample)
@@ -76,6 +81,9 @@ class Mixer:
             raise Exception('Invalid sample width ' + str(self._sample_width))
 
         for sample in self._active_samples:
+            if sample.is_finished():
+                self._active_samples.remove(sample)
+                continue
             frames = sample.get_frames(num_frames)
             # convert to list of ints
             sample_np = np.frombuffer(frames, dtype=dt)
