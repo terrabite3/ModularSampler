@@ -139,6 +139,7 @@ class Audio:
             output = True,
             input_device_index = device_index,
             output_device_index = device_index,
+            frames_per_buffer = 16,
             stream_callback = self._callback
         )
 
